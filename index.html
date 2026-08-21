@@ -9,25 +9,25 @@
 :root {
   --accent: #8b5cf6;
   --accent-soft: #ede9fe;
-  --bg: #f7f7fb;
+  --bg: #f6f6fa;
   --card: #ffffff;
   --text: #17171c;
   --muted: #777784;
-  --border: #e8e8ef;
+  --border: #e7e7ef;
+  --message: #f0eff5;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
 }
 
 body {
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  transition: .25s;
 }
 
 body.dark {
@@ -36,19 +36,25 @@ body.dark {
   --text: #f5f5f7;
   --muted: #a3a3ad;
   --border: #2b2b34;
-  --accent-soft: #302650;
+  --message: #292932;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
 }
 
 .app {
-  max-width: 1100px;
   min-height: 100vh;
+  max-width: 1100px;
   margin: auto;
-  display: flex;
-  flex-direction: column;
+  background: var(--bg);
 }
 
+/* HEADER */
+
 header {
-  height: 70px;
+  height: 68px;
   padding: 0 20px;
   background: var(--card);
   border-bottom: 1px solid var(--border);
@@ -61,13 +67,13 @@ header {
 }
 
 .logo {
-  font-size: 28px;
+  font-size: 27px;
   font-weight: 900;
-  color: var(--accent);
   letter-spacing: 2px;
+  color: var(--accent);
 }
 
-.header-profile {
+.header-avatar {
   width: 42px;
   height: 42px;
   border-radius: 50%;
@@ -75,38 +81,41 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   cursor: pointer;
-  font-size: 20px;
 }
 
+.header-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* PAGES */
+
 main {
-  flex: 1;
-  padding: 25px 20px 90px;
+  padding: 25px 20px 95px;
 }
 
 .page {
   display: none;
-  animation: fade .2s ease;
 }
 
 .page.active {
   display: block;
 }
 
-@keyframes fade {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 h1 {
-  font-size: 30px;
-  margin-bottom: 7px;
+  font-size: 29px;
+  margin-bottom: 6px;
 }
 
 .subtitle {
   color: var(--muted);
-  margin-bottom: 25px;
+  margin-bottom: 24px;
 }
+
+/* HOME */
 
 .cards {
   display: grid;
@@ -134,14 +143,14 @@ h1 {
 }
 
 .card h2 {
-  font-size: 19px;
   margin-bottom: 6px;
 }
 
 .card p {
   color: var(--muted);
-  line-height: 1.4;
 }
+
+/* LISTS */
 
 .list {
   display: flex;
@@ -157,7 +166,6 @@ h1 {
   display: flex;
   align-items: center;
   gap: 13px;
-  cursor: pointer;
 }
 
 .avatar {
@@ -168,8 +176,14 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 21px;
+  overflow: hidden;
   flex-shrink: 0;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .item-info {
@@ -186,18 +200,211 @@ h1 {
   font-size: 14px;
 }
 
-.online {
-  width: 11px;
-  height: 11px;
-  background: #32d74b;
+/* CHAT */
+
+.chat-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  padding: 15px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chat-header-info {
+  flex: 1;
+}
+
+.chat-header-info strong {
+  display: block;
+}
+
+.chat-header-info span {
+  color: #32c759;
+  font-size: 13px;
+}
+
+.messages {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  min-height: 400px;
+}
+
+.message {
+  max-width: 75%;
+  padding: 10px 14px;
+  border-radius: 17px;
+  background: var(--message);
+  align-self: flex-start;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.message.mine {
+  align-self: flex-end;
+  background: var(--accent);
+  color: white;
+}
+
+.message-time {
+  font-size: 10px;
+  opacity: .65;
+  margin-top: 4px;
+}
+
+.composer {
+  border-top: 1px solid var(--border);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.composer button {
+  width: 38px;
+  height: 38px;
+  border: none;
   border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 18px;
 }
 
-.server-icon {
-  border-radius: 15px;
+.composer input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: var(--message);
+  color: var(--text);
+  padding: 11px 15px;
+  border-radius: 20px;
+  font-size: 15px;
 }
 
-.settings-section {
+.send {
+  background: var(--accent) !important;
+  color: white !important;
+}
+
+/* PROFILE */
+
+.profile-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 30px;
+  text-align: center;
+}
+
+.big-avatar {
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-size: 45px;
+}
+
+.big-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.username {
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.bio {
+  color: var(--muted);
+  margin: 15px auto;
+  max-width: 450px;
+}
+
+.active-status {
+  color: #32c759;
+  font-size: 14px;
+}
+
+/* EDIT PROFILE */
+
+.form {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.field {
+  margin-bottom: 17px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: 700;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--message);
+  color: var(--text);
+  outline: none;
+  font-size: 15px;
+}
+
+.field textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.primary {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 13px;
+  background: var(--accent);
+  color: white;
+  font-weight: 700;
+}
+
+.secondary {
+  margin-top: 10px;
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 13px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* SETTINGS */
+
+.settings {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 20px;
@@ -206,7 +413,7 @@ h1 {
 }
 
 .setting {
-  padding: 18px;
+  padding: 17px;
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
@@ -218,20 +425,19 @@ h1 {
   border-bottom: none;
 }
 
-.setting-text strong {
+.setting strong {
   display: block;
   margin-bottom: 4px;
 }
 
-.setting-text span {
+.setting small {
   color: var(--muted);
-  font-size: 14px;
 }
 
 .colors {
   display: flex;
-  gap: 9px;
   flex-wrap: wrap;
+  gap: 9px;
 }
 
 .color {
@@ -239,23 +445,14 @@ h1 {
   height: 32px;
   border-radius: 50%;
   border: 3px solid transparent;
-  cursor: pointer;
-}
-
-.color.selected {
-  border-color: var(--text);
-}
-
-button {
-  border: none;
-  cursor: pointer;
 }
 
 .toggle {
   width: 50px;
   height: 28px;
+  border: none;
+  border-radius: 20px;
   background: #777;
-  border-radius: 30px;
   position: relative;
 }
 
@@ -263,11 +460,11 @@ button {
   content: "";
   width: 22px;
   height: 22px;
-  background: white;
-  border-radius: 50%;
   position: absolute;
   top: 3px;
   left: 4px;
+  background: white;
+  border-radius: 50%;
   transition: .2s;
 }
 
@@ -279,38 +476,7 @@ button {
   left: 24px;
 }
 
-.profile-box {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 30px;
-  text-align: center;
-}
-
-.big-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: var(--accent-soft);
-  margin: 0 auto 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 45px;
-}
-
-.username {
-  color: var(--muted);
-  margin-top: 5px;
-}
-
-.status {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin-top: 15px;
-  color: #32d74b;
-}
+/* NAVIGATION */
 
 nav {
   position: fixed;
@@ -328,17 +494,18 @@ nav {
 }
 
 nav button {
-  background: transparent;
+  border: none;
+  background: none;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 11px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 4px;
+  align-items: center;
 }
 
 nav button span {
-  font-size: 22px;
+  font-size: 21px;
 }
 
 nav button.active {
@@ -347,13 +514,16 @@ nav button.active {
 }
 
 .back {
+  margin-bottom: 15px;
+  border: none;
   background: var(--accent-soft);
   color: var(--accent);
-  padding: 9px 15px;
-  border-radius: 12px;
-  margin-bottom: 20px;
+  border-radius: 11px;
+  padding: 9px 14px;
   font-weight: 700;
 }
+
+/* MOBILE */
 
 @media (max-width: 650px) {
   .cards {
@@ -362,6 +532,10 @@ nav button.active {
 
   h1 {
     font-size: 26px;
+  }
+
+  .message {
+    max-width: 85%;
   }
 }
 </style>
@@ -373,28 +547,34 @@ nav button.active {
 
 <header>
   <div class="logo">MIVU</div>
-  <div class="header-profile" onclick="showPage('profile')">👤</div>
+
+  <div class="header-avatar" onclick="showPage('profile')">
+    <span id="headerEmoji">👤</span>
+    <img id="headerImage" style="display:none;">
+  </div>
 </header>
 
 <main>
 
 <!-- HOME -->
+
 <section id="home" class="page active">
+
   <h1>Welcome to MIVU 👋</h1>
-  <p class="subtitle">Your place to chat, connect and hang out.</p>
+  <p class="subtitle">Chat, connect and hang out.</p>
 
   <div class="cards">
 
     <div class="card" onclick="showPage('chats')">
       <div class="card-icon">💬</div>
       <h2>Chats</h2>
-      <p>Talk with friends and groups.</p>
+      <p>Your conversations and group chats.</p>
     </div>
 
     <div class="card" onclick="showPage('servers')">
       <div class="card-icon">🏠</div>
       <h2>Servers</h2>
-      <p>Find communities and hang out.</p>
+      <p>Join communities and discover people.</p>
     </div>
 
     <div class="card" onclick="showPage('friends')">
@@ -406,182 +586,315 @@ nav button.active {
     <div class="card" onclick="showPage('settings')">
       <div class="card-icon">⚙️</div>
       <h2>Settings</h2>
-      <p>Customize your MIVU experience.</p>
+      <p>Customize your MIVU.</p>
     </div>
 
   </div>
+
 </section>
 
 <!-- CHATS -->
+
 <section id="chats" class="page">
+
   <h1>Chats 💬</h1>
   <p class="subtitle">Your conversations.</p>
 
-  <div class="list">
+  <div class="chat-box">
 
-    <div class="item">
+    <div class="chat-header">
+
       <div class="avatar">🌸</div>
-      <div class="item-info">
-        <strong>Welcome to MIVU</strong>
-        <span>Start your first conversation</span>
+
+      <div class="chat-header-info">
+        <strong>MIVU Chat</strong>
+        <span>● Active</span>
       </div>
+
+      <button onclick="alert('Voice calls will be added in the next stage!')">📞</button>
+      <button onclick="alert('Video calls will be added in the next stage!')">📹</button>
+
     </div>
 
-    <div class="item">
-      <div class="avatar">👥</div>
-      <div class="item-info">
-        <strong>Group Chat</strong>
-        <span>No messages yet</span>
+    <div id="messages" class="messages">
+
+      <div class="message">
+        Welcome to MIVU! 💗
+        <div class="message-time">Now</div>
       </div>
+
+    </div>
+
+    <div class="composer">
+
+      <button onclick="chooseImage()">🖼️</button>
+
+      <button onclick="chooseVideo()">🎥</button>
+
+      <button onclick="alert('File sharing will be connected to the MIVU server later.')">📎</button>
+
+      <button onclick="alert('Voice messages will be added later.')">🎤</button>
+
+      <input
+        id="messageInput"
+        type="text"
+        placeholder="Message..."
+        onkeydown="if(event.key==='Enter') sendMessage()"
+      >
+
+      <button class="send" onclick="sendMessage()">➤</button>
+
     </div>
 
   </div>
+
 </section>
 
 <!-- SERVERS -->
+
 <section id="servers" class="page">
+
   <h1>Servers 🏠</h1>
-  <p class="subtitle">Your communities.</p>
+  <p class="subtitle">Communities you'll join.</p>
 
   <div class="list">
 
     <div class="item">
-      <div class="avatar server-icon">🎮</div>
+      <div class="avatar">🎮</div>
       <div class="item-info">
         <strong>Gaming</strong>
-        <span>0 members</span>
+        <span>Community server</span>
       </div>
     </div>
 
     <div class="item">
-      <div class="avatar server-icon">🎨</div>
+      <div class="avatar">🎨</div>
       <div class="item-info">
         <strong>Creative Corner</strong>
-        <span>0 members</span>
+        <span>Art and creativity</span>
       </div>
     </div>
 
     <div class="item">
-      <div class="avatar server-icon">🎵</div>
+      <div class="avatar">🎵</div>
       <div class="item-info">
         <strong>Music</strong>
-        <span>0 members</span>
+        <span>Music lovers</span>
       </div>
     </div>
 
   </div>
+
 </section>
 
 <!-- FRIENDS -->
+
 <section id="friends" class="page">
+
   <h1>Friends 👥</h1>
-  <p class="subtitle">People you connect with.</p>
+  <p class="subtitle">Your MIVU friends.</p>
 
-  <div class="list">
+  <div class="item">
 
-    <div class="item">
-      <div class="avatar">😊</div>
-      <div class="item-info">
-        <strong>Your first friend</strong>
-        <span>Waiting for friends...</span>
-      </div>
-      <div class="online"></div>
+    <div class="avatar">👋</div>
+
+    <div class="item-info">
+      <strong>No friends yet</strong>
+      <span>Add friends when real accounts are connected.</span>
     </div>
 
   </div>
+
 </section>
 
 <!-- PROFILE -->
+
 <section id="profile" class="page">
+
   <h1>Profile 👤</h1>
-  <p class="subtitle">Your MIVU profile.</p>
+  <p class="subtitle">Your MIVU identity.</p>
 
-  <div class="profile-box">
+  <div class="profile-card">
 
-    <div class="big-avatar">👤</div>
+    <div class="big-avatar">
 
-    <h2>Your Name</h2>
-    <div class="username">@username</div>
+      <span id="profileEmoji">👤</span>
 
-    <div class="status">
-      <span class="online"></span>
-      Active now
+      <img id="profileImage" style="display:none;">
+
     </div>
 
-    <p style="margin-top:20px;color:var(--muted);">
+    <h2 id="profileName">Your Name</h2>
+
+    <div class="username" id="profileUsername">@username</div>
+
+    <div class="active-status">
+      ● Active now
+    </div>
+
+    <p class="bio" id="profileBio">
       Welcome to my MIVU profile 💗
     </p>
 
+    <button class="primary" onclick="showPage('editProfile')">
+      ✏️ Edit Profile
+    </button>
+
   </div>
+
+</section>
+
+<!-- EDIT PROFILE -->
+
+<section id="editProfile" class="page">
+
+  <button class="back" onclick="showPage('profile')">
+    ← Back
+  </button>
+
+  <h1>Edit Profile</h1>
+  <p class="subtitle">Customize how people see you.</p>
+
+  <div class="form">
+
+    <div class="field">
+
+      <label>Display name</label>
+
+      <input id="nameInput" placeholder="Your name">
+
+    </div>
+
+    <div class="field">
+
+      <label>Username</label>
+
+      <input id="usernameInput" placeholder="@username">
+
+    </div>
+
+    <div class="field">
+
+      <label>Bio</label>
+
+      <textarea id="bioInput" placeholder="Tell people about yourself..."></textarea>
+
+    </div>
+
+    <div class="field">
+
+      <label>Profile picture</label>
+
+      <input
+        id="profilePictureInput"
+        type="file"
+        accept="image/*"
+        onchange="changePFP(event)"
+      >
+
+    </div>
+
+    <button class="primary" onclick="saveProfile()">
+      Save Profile
+    </button>
+
+  </div>
+
 </section>
 
 <!-- SETTINGS -->
+
 <section id="settings" class="page">
 
   <h1>Settings ⚙️</h1>
   <p class="subtitle">Make MIVU yours.</p>
 
-  <div class="settings-section">
+  <div class="settings">
 
     <div class="setting">
-      <div class="setting-text">
+
+      <div>
         <strong>Dark mode</strong>
-        <span>Change the appearance of MIVU.</span>
+        <small>Change MIVU's appearance.</small>
       </div>
 
-      <button id="darkToggle" class="toggle" onclick="toggleDark()"></button>
+      <button
+        id="darkToggle"
+        class="toggle"
+        onclick="toggleDark()">
+      </button>
+
     </div>
 
   </div>
 
-  <div class="settings-section">
+  <div class="settings">
 
     <div class="setting">
-      <div class="setting-text">
+
+      <div>
         <strong>Theme color</strong>
-        <span>Choose your personal MIVU color.</span>
+        <small>Only your MIVU theme changes.</small>
       </div>
+
     </div>
 
     <div class="setting">
+
       <div class="colors">
 
-        <button class="color" style="background:#8b5cf6" onclick="setColor('#8b5cf6', this)"></button>
+        <button class="color"
+          style="background:#8b5cf6"
+          onclick="setColor('#8b5cf6')">
+        </button>
 
-        <button class="color" style="background:#ff4f9a" onclick="setColor('#ff4f9a', this)"></button>
+        <button class="color"
+          style="background:#ff4f9a"
+          onclick="setColor('#ff4f9a')">
+        </button>
 
-        <button class="color" style="background:#3b82f6" onclick="setColor('#3b82f6', this)"></button>
+        <button class="color"
+          style="background:#3b82f6"
+          onclick="setColor('#3b82f6')">
+        </button>
 
-        <button class="color" style="background:#22c55e" onclick="setColor('#22c55e', this)"></button>
+        <button class="color"
+          style="background:#22c55e"
+          onclick="setColor('#22c55e')">
+        </button>
 
-        <button class="color" style="background:#f97316" onclick="setColor('#f97316', this)"></button>
+        <button class="color"
+          style="background:#f97316"
+          onclick="setColor('#f97316')">
+        </button>
 
-        <button class="color" style="background:#ef4444" onclick="setColor('#ef4444', this)"></button>
+        <button class="color"
+          style="background:#ef4444"
+          onclick="setColor('#ef4444')">
+        </button>
 
-        <button class="color" style="background:#06b6d4" onclick="setColor('#06b6d4', this)"></button>
+        <button class="color"
+          style="background:#06b6d4"
+          onclick="setColor('#06b6d4')">
+        </button>
 
       </div>
+
     </div>
 
   </div>
 
-  <div class="settings-section">
+  <div class="settings">
 
-    <div class="setting" onclick="showPage('profile')">
-      <div class="setting-text">
+    <div class="setting" onclick="showPage('editProfile')">
+
+      <div>
         <strong>Profile</strong>
-        <span>Edit your profile information.</span>
+        <small>Change your name, username, bio and PFP.</small>
       </div>
+
       <span>›</span>
-    </div>
 
-    <div class="setting">
-      <div class="setting-text">
-        <strong>Active status</strong>
-        <span>Let people know when you're online.</span>
-      </div>
-
-      <button class="toggle on"></button>
     </div>
 
   </div>
@@ -590,9 +903,11 @@ nav button.active {
 
 </main>
 
+<!-- NAVIGATION -->
+
 <nav>
 
-  <button onclick="showPage('home')" class="active">
+  <button class="active" onclick="showPage('home')">
     <span>🏠</span>
     Home
   </button>
@@ -623,6 +938,8 @@ nav button.active {
 
 <script>
 
+/* PAGE NAVIGATION */
+
 function showPage(page) {
 
   document.querySelectorAll(".page").forEach(function(section) {
@@ -635,9 +952,7 @@ function showPage(page) {
     button.classList.remove("active");
   });
 
-  const buttons = document.querySelectorAll("nav button");
-
-  buttons.forEach(function(button) {
+  document.querySelectorAll("nav button").forEach(function(button) {
 
     if (button.getAttribute("onclick") === "showPage('" + page + "')") {
       button.classList.add("active");
@@ -645,67 +960,393 @@ function showPage(page) {
 
   });
 
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  window.scrollTo(0,0);
 }
 
-function setColor(color, element) {
 
-  document.documentElement.style.setProperty("--accent", color);
+/* SEND MESSAGE */
 
-  const soft = hexToRgba(color, 0.12);
+function sendMessage() {
 
-  document.documentElement.style.setProperty("--accent-soft", soft);
+  const input = document.getElementById("messageInput");
+  const text = input.value.trim();
 
-  localStorage.setItem("mivuColor", color);
+  if (!text) return;
 
-  document.querySelectorAll(".color").forEach(function(button) {
-    button.classList.remove("selected");
-  });
+  const message = document.createElement("div");
 
-  if (element) {
-    element.classList.add("selected");
+  message.className = "message mine";
+
+  message.innerHTML =
+    escapeHTML(text) +
+    '<div class="message-time">Now</div>';
+
+  document.getElementById("messages").appendChild(message);
+
+  input.value = "";
+
+  const messages = document.getElementById("messages");
+
+  messages.scrollTop = messages.scrollHeight;
+
+  saveMessages();
+}
+
+
+/* PREVENT HTML IN MESSAGES */
+
+function escapeHTML(text) {
+
+  const div = document.createElement("div");
+
+  div.textContent = text;
+
+  return div.innerHTML;
+}
+
+
+/* SAVE LOCAL MESSAGES */
+
+function saveMessages() {
+
+  localStorage.setItem(
+    "mivuMessages",
+    document.getElementById("messages").innerHTML
+  );
+
+}
+
+
+/* LOAD MESSAGES */
+
+function loadMessages() {
+
+  const saved =
+    localStorage.getItem("mivuMessages");
+
+  if (saved) {
+
+    document.getElementById("messages").innerHTML = saved;
+
   }
+
 }
+
+
+/* PROFILE */
+
+function saveProfile() {
+
+  const name =
+    document.getElementById("nameInput").value.trim();
+
+  const username =
+    document.getElementById("usernameInput").value.trim();
+
+  const bio =
+    document.getElementById("bioInput").value.trim();
+
+  if (name) {
+
+    localStorage.setItem("mivuName", name);
+
+    document.getElementById("profileName").textContent = name;
+
+  }
+
+  if (username) {
+
+    const cleanUsername =
+      username.startsWith("@")
+      ? username
+      : "@" + username;
+
+    localStorage.setItem(
+      "mivuUsername",
+      cleanUsername
+    );
+
+    document.getElementById(
+      "profileUsername"
+    ).textContent = cleanUsername;
+
+  }
+
+  if (bio) {
+
+    localStorage.setItem("mivuBio", bio);
+
+    document.getElementById(
+      "profileBio"
+    ).textContent = bio;
+
+  }
+
+  showPage("profile");
+
+}
+
+
+/* PROFILE PICTURE */
+
+function changePFP(event) {
+
+  const file = event.target.files[0];
+
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+
+    const image = e.target.result;
+
+    localStorage.setItem(
+      "mivuPFP",
+      image
+    );
+
+    document.getElementById("profileImage").src = image;
+    document.getElementById("profileImage").style.display = "block";
+
+    document.getElementById("profileEmoji").style.display = "none";
+
+    document.getElementById("headerImage").src = image;
+    document.getElementById("headerImage").style.display = "block";
+
+    document.getElementById("headerEmoji").style.display = "none";
+
+  };
+
+  reader.readAsDataURL(file);
+
+}
+
+
+/* THEME */
+
+function setColor(color) {
+
+  document.documentElement.style.setProperty(
+    "--accent",
+    color
+  );
+
+  document.documentElement.style.setProperty(
+    "--accent-soft",
+    hexToRgba(color, 0.12)
+  );
+
+  localStorage.setItem(
+    "mivuColor",
+    color
+  );
+
+}
+
+
+/* COLOR HELPER */
 
 function hexToRgba(hex, alpha) {
 
-  const r = parseInt(hex.substring(1,3),16);
-  const g = parseInt(hex.substring(3,5),16);
-  const b = parseInt(hex.substring(5,7),16);
+  const r =
+    parseInt(hex.substring(1,3),16);
 
-  return "rgba(" + r + "," + g + "," + b + "," + alpha + ")";
+  const g =
+    parseInt(hex.substring(3,5),16);
+
+  const b =
+    parseInt(hex.substring(5,7),16);
+
+  return "rgba(" +
+    r + "," +
+    g + "," +
+    b + "," +
+    alpha + ")";
+
 }
+
+
+/* DARK MODE */
 
 function toggleDark() {
 
   document.body.classList.toggle("dark");
 
-  const enabled = document.body.classList.contains("dark");
+  const enabled =
+    document.body.classList.contains("dark");
 
-  localStorage.setItem("mivuDark", enabled);
+  localStorage.setItem(
+    "mivuDark",
+    enabled
+  );
 
-  document.getElementById("darkToggle").classList.toggle("on", enabled);
+  document
+    .getElementById("darkToggle")
+    .classList.toggle("on", enabled);
+
 }
+
+
+/* LOAD EVERYTHING */
 
 window.onload = function() {
 
-  const savedColor = localStorage.getItem("mivuColor");
+  const color =
+    localStorage.getItem("mivuColor");
 
-  if (savedColor) {
-    setColor(savedColor);
+  if (color) {
+    setColor(color);
   }
 
-  const savedDark = localStorage.getItem("mivuDark") === "true";
+  const dark =
+    localStorage.getItem("mivuDark") === "true";
 
-  if (savedDark) {
+  if (dark) {
+
     document.body.classList.add("dark");
-    document.getElementById("darkToggle").classList.add("on");
+
+    document
+      .getElementById("darkToggle")
+      .classList.add("on");
+
   }
+
+  const name =
+    localStorage.getItem("mivuName");
+
+  if (name) {
+
+    document.getElementById(
+      "profileName"
+    ).textContent = name;
+
+    document.getElementById(
+      "nameInput"
+    ).value = name;
+
+  }
+
+  const username =
+    localStorage.getItem("mivuUsername");
+
+  if (username) {
+
+    document.getElementById(
+      "profileUsername"
+    ).textContent = username;
+
+    document.getElementById(
+      "usernameInput"
+    ).value = username;
+
+  }
+
+  const bio =
+    localStorage.getItem("mivuBio");
+
+  if (bio) {
+
+    document.getElementById(
+      "profileBio"
+    ).textContent = bio;
+
+    document.getElementById(
+      "bioInput"
+    ).value = bio;
+
+  }
+
+  const pfp =
+    localStorage.getItem("mivuPFP");
+
+  if (pfp) {
+
+    document.getElementById(
+      "profileImage"
+    ).src = pfp;
+
+    document.getElementById(
+      "profileImage"
+    ).style.display = "block";
+
+    document.getElementById(
+      "profileEmoji"
+    ).style.display = "none";
+
+    document.getElementById(
+      "headerImage"
+    ).src = pfp;
+
+    document.getElementById(
+      "headerImage"
+    ).style.display = "block";
+
+    document.getElementById(
+      "headerEmoji"
+    ).style.display = "none";
+
+  }
+
+  loadMessages();
 
 };
+
+
+/* IMAGE / VIDEO PROTOTYPE */
+
+function chooseImage() {
+
+  const input =
+    document.createElement("input");
+
+  input.type = "file";
+  input.accept = "image/*";
+
+  input.onchange = function() {
+
+    if (!input.files[0]) return;
+
+    const reader =
+      new FileReader();
+
+    reader.onload = function(e) {
+
+      const message =
+        document.createElement("div");
+
+      message.className = "message mine";
+
+      message.innerHTML =
+        '<img src="' +
+        e.target.result +
+        '" style="max-width:220px;border-radius:12px;">' +
+        '<div class="message-time">Image</div>';
+
+      document
+        .getElementById("messages")
+        .appendChild(message);
+
+      saveMessages();
+
+    };
+
+    reader.readAsDataURL(input.files[0]);
+
+  };
+
+  input.click();
+
+}
+
+
+function chooseVideo() {
+
+  alert(
+    "Video attachments are prepared for MIVU. Real video uploading will be connected when we add the MIVU server."
+  );
+
+}
 
 </script>
 
